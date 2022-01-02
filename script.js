@@ -348,17 +348,22 @@ let secretnumber=Math.trunc(Math.random()*20)+1;
 let score=20;
 let highscore=0;
 
-document.querySelector('.check').addEventListener("click",function(){
+const displaymessage=function(message){
+  document.querySelector('.message').textContent=message ;
+}
 
+document.querySelector('.check').addEventListener("click",function(){
    const guess=Number( document.querySelector('.guess').value);
   //  console.log(typeof guess);
 
     ///// When there is no input
      if(!guess){
-     document.querySelector(".message").textContent="No Number Please try agian";
+    //  document.querySelector(".message").textContent="No Number Please try agian";
+      displaymessage("No Number Please try agian");
      ///// When player win
    }else if(guess===secretnumber){
-    document.querySelector('.message').textContent="Correct Number 👍" ;
+    // document.querySelector('.message').textContent="Correct Number 👍" ;
+    displaymessage("Correct Number 👍");
     document.querySelector('.number').textContent=secretnumber;
     document.querySelector("body").style.backgroundColor="green";
     document.querySelector(".number").style.width="30rem";
@@ -366,42 +371,53 @@ document.querySelector('.check').addEventListener("click",function(){
       highscore=score;
       document.querySelector(".highscore").textContent=highscore;
     }
-
-
     ///// When guess is too height
-   }else if(guess > secretnumber){
-     if(score>0){
-      document.querySelector('.message').textContent="Too Height" ;
+   }else if(guess !== secretnumber){
+    if(score>0){
+      // document.querySelector('.message').textContent=guess > secretnumber ? "Too Height" : "Too Low" ;
+      displaymessage(guess > secretnumber ? "Too Height" : "Too Low");
       score--;
       document.querySelector('.score').textContent=score;
      }else{
-      document.querySelector('.message').textContent="Game Over !" ;
-      document.querySelector('.score').textContent="0";
-     }
-     ///// When guess is too low
-   }else if(guess < secretnumber){
-    if(score>0){
-      document.querySelector('.message').textContent="Too Low" ;
-      score--;
-      document.querySelector('.score').textContent=score;
-    }else{
-      document.querySelector('.message').textContent="Game Over !" ;
+      // document.querySelector('.message').textContent="Game Over !" ;
+      displaymessage("Game Over !");
       document.querySelector('.score').textContent="0";
      }
    }
-   
+
+  //  else if(guess > secretnumber){
+  //    if(score>0){
+  //     document.querySelector('.message').textContent="Too Height" ;
+  //     score--;
+  //     document.querySelector('.score').textContent=score;
+  //    }else{
+  //     document.querySelector('.message').textContent="Game Over !" ;
+  //     document.querySelector('.score').textContent="0";
+  //    }
+  //    ///// When guess is too low
+  //  }else if(guess < secretnumber){
+  //   if(score>0){
+  //     document.querySelector('.message').textContent="Too Low" ;
+  //     score--;
+  //     document.querySelector('.score').textContent=score;
+  //   }else{
+  //     document.querySelector('.message').textContent="Game Over !" ;
+  //     document.querySelector('.score').textContent="0";
+  //    }
+  //  }
 });
 
-   
 document.querySelector(".again").addEventListener("click",function(){
   score=20;
   secretnumber=Math.trunc(Math.random()*20)+1;
-  document.querySelector('.message').textContent="Starting guesting..." ;
+  // document.querySelector('.message').textContent="Starting guesting..." ;
+  displaymessage("Starting guesting...");
   document.querySelector('.score').textContent=score ;
   document.querySelector('.number').textContent="?" ;
   document.querySelector('.guess').value=" " ;
   document.querySelector('body').style.backgroundColor="#000";
   document.querySelector('.number').style.width="15rem" ;
 });
+
 
 
